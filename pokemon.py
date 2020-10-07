@@ -15,7 +15,6 @@ class Pokemon:
         self.current_health = self.current_health - damage
         if self.current_health == 0:
             return self.is_knocked_out(self.current_health)
-        
         return "{}'s hp is now at {}".format(self.name, self.current_health)
     
     def gain_hp(self, potion):
@@ -24,19 +23,16 @@ class Pokemon:
         if self.current_health > self.maximum_health:
             self.current_health = self.maximum_health
         if self.current_health > 0:
-            self.knocked_out == False
+            self.knocked_out = False
         return "{}'s hp is now at {}".format(self.name, self.current_health)
 
     def is_knocked_out(self, current_health):
         if self.current_health == 0:
             self.knocked_out = True
             return "{} is knocked the fuck out!".format(self.name)
-        else:
-            self.knocked_out = False
-            return "{} is ALIVE!".format(self.name)
-
+        
 
 charmander = Pokemon("Charmander", 4, "Fire", 4, 4, False)
-print(charmander.loose_hp(4))
-charmander.gain_hp(3)
+charmander.loose_hp(4)
+charmander.gain_hp(200)
 print(charmander.poke_status())
