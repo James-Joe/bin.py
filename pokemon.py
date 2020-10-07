@@ -33,6 +33,8 @@ class Pokemon:
         
 charmander = Pokemon("Charmander", 4, "Fire", 4, 4, False)
 squirtle = Pokemon("Squirtle", 4, "Water", 4, 4, False)
+bulbasaur = Pokemon("Bulbasaur", 4, "grass", 4, 4, False)
+
 
 charmander.loose_hp(4)
 charmander.gain_hp(200)
