@@ -6,6 +6,8 @@ class Pokemon:
         self.maximum_health = level
         self.current_health = current_health
         self.knocked_out = knocked_out
+    def __repr__(self):
+        return self.name
 
     def poke_status(self):
         return "{}'s Stats \nLvl.: {}  Type: {} \nHp: {} \nUnconscious: {}".format(self.name, self.level, self.element, self.current_health, self.knocked_out)
@@ -49,6 +51,17 @@ charmander = Pokemon("Charmander", 50, "Fire", 50, 50, False)
 squirtle = Pokemon("Squirtle", 50, "Water", 50, 50, False)
 bulbasaur = Pokemon("Bulbasaur", 50, "Grass", 50, 50, False)
 old_greg = Pokemon("Old Greg", 50, "Water", 50, 50, False )
+growlithe = Pokemon("Growlithe", 50, "Fire", 50, 50, False)
+poliwhirl = Pokemon("Poliwhirl", 50, "Water", 50, 50, False)
 
-print(charmander.attack(20, old_greg))
-print(old_greg.poke_status())
+class Trainer:
+    def __init__(self, name, creatures, potions, current_pokemon):
+        self.name = name
+        self.creatures = creatures
+        self.potions = potions
+        self.current_pokemon = creatures[current_pokemon]
+    def trainer_stats(self):
+        return "Name: {} \nInventory: {} \npotions: {} \nselected pokemon: {}".format(self.name, self.creatures, self.potions, self.current_pokemon)
+ash = Trainer("Ash",[charmander, squirtle, bulbasaur, old_greg, growlithe, poliwhirl], 5, 4)
+
+print(ash.trainer_stats())
