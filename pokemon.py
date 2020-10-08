@@ -32,18 +32,16 @@ class Pokemon:
             return "{} is knocked the fuck out!".format(self.name)
     
     def attack(self, damage, other):
-        self.damage = damage
-        self.other = other
         advantage = ""
         disadvantage = ""
         modifier = 3
-        weakness = {"Fire":"Water", "Water":"Grass", "Grass":"Fire"}
-        advantage = advantage + weakness.get(self.element)
-        disadvantage = disadvantage + weakness.get(other.element)
+        weakness = {"Fire": "Water", "Water" :"Grass", "Grass": "Fire"}
+        advantage = advantage + weakness.get(other.element)
+        disadvantage = disadvantage + weakness.get(self.element)
+        if other.element == disadvantage:
+            damage = damage - modifier
         if self.element == advantage:
-            self.damage = damage + modifier
-        elif self.element == disadvantage:
-            self.damage = damage - modifier
+            damage = damage + modifier
         return other.loose_hp(damage)
         
         
