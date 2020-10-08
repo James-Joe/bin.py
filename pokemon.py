@@ -6,9 +6,9 @@ class Pokemon:
         self.maximum_health = level
         self.current_health = current_health
         self.knocked_out = knocked_out
-    
+
     def poke_status(self):
-        return "Hp: {} \nUnconscious: {}".format(self.current_health, self.knocked_out)
+        return "{}'s Stats \nLvl.: {}  Type: {} \nHp: {} \nUnconscious: {}".format(self.name, self.level, self.element, self.current_health, self.knocked_out)
 
     def loose_hp(self, damage):
         self.damage = damage
@@ -30,12 +30,27 @@ class Pokemon:
         if self.current_health == 0:
             self.knocked_out = True
             return "{} is knocked the fuck out!".format(self.name)
+    
+    def attack(self, damage, other):
+        self.damage = damage
+        self.other = other
+        advantage = ""
+        disadvantage = ""
+        modifier = 3
+        weakness = {"Fire":"Water", "Water":"Grass", "Grass":"Fire"}
+        advantage = advantage + weakness.get(self.element)
+        disadvantage = disadvantage + weakness.get(other.element)
+        if self.element == advantage:
+            self.damage = damage + modifier
+        elif self.element == disadvantage:
+            self.damage = damage - modifier
+        return other.loose_hp(damage)
         
-charmander = Pokemon("Charmander", 4, "Fire", 4, 4, False)
-squirtle = Pokemon("Squirtle", 4, "Water", 4, 4, False)
-bulbasaur = Pokemon("Bulbasaur", 4, "grass", 4, 4, False)
-old_greg = Pokemon("Old Greg", 4, "water", 4, 4, False )
+        
+charmander = Pokemon("Charmander", 50, "Fire", 50, 50, False)
+squirtle = Pokemon("Squirtle", 50, "Water", 50, 50, False)
+bulbasaur = Pokemon("Bulbasaur", 50, "Grass", 50, 50, False)
+old_greg = Pokemon("Old Greg", 50, "Water", 50, 50, False )
 
-charmander.loose_hp(4)
-charmander.gain_hp(200)
-print(charmander.poke_status())
+print(charmander.attack(20, old_greg))
+print(old_greg.poke_status())
