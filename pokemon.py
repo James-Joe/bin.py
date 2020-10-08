@@ -6,6 +6,7 @@ class Pokemon:
         self.maximum_health = level
         self.current_health = current_health
         self.knocked_out = knocked_out
+        
     def __repr__(self):
         return self.name
 
@@ -53,6 +54,8 @@ bulbasaur = Pokemon("Bulbasaur", 50, "Grass", 50, 50, False)
 old_greg = Pokemon("Old Greg", 50, "Water", 50, 50, False )
 growlithe = Pokemon("Growlithe", 50, "Fire", 50, 50, False)
 poliwhirl = Pokemon("Poliwhirl", 50, "Water", 50, 50, False)
+oddish = Pokemon("Oddish", 50, "Grass", 50, 50, False)
+bellsprout = Pokemon("Bellsprout", 50, "Grass", 50, 50, False)
 
 class Trainer:
     def __init__(self, name, creatures, potions, current_pokemon):
@@ -62,6 +65,9 @@ class Trainer:
         self.current_pokemon = creatures[current_pokemon]
     def trainer_stats(self):
         return "Name: {} \nInventory: {} \npotions: {} \nselected pokemon: {}".format(self.name, self.creatures, self.potions, self.current_pokemon)
+
 ash = Trainer("Ash",[charmander, squirtle, bulbasaur, old_greg, growlithe, poliwhirl], 5, 4)
+gary = Trainer("Gary", [bulbasaur, bellsprout, poliwhirl, old_greg, growlithe, squirtle], 5, 2)
 
 print(ash.trainer_stats())
+print(gary.trainer_stats())
