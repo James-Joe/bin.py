@@ -11,7 +11,8 @@ class Pokemon:
         return self.name
 
     def poke_status(self):
-        return "{}'s Stats \nLvl.: {}  Type: {} \nHp: {} \nUnconscious: {}".format(self.name, self.level, self.element, self.current_health, self.knocked_out)
+        return "{}'s Stats \nLvl.: {}  Type: {} \nHp: {} \nUnconscious: {}".format(
+            self.name, self.level, self.element, self.current_health, self.knocked_out)
 
     def loose_hp(self, damage):
         self.damage = damage
@@ -63,11 +64,28 @@ class Trainer:
         self.creatures = creatures
         self.potions = potions
         self.current_pokemon = creatures[current_pokemon]
+
     def trainer_stats(self):
-        return "Name: {} \nInventory: {} \npotions: {} \nselected pokemon: {}".format(self.name, self.creatures, self.potions, self.current_pokemon)
+        return "Name: {} \nInventory: {} \npotions: {} \nselected pokemon: {}".format(
+        self.name, self.creatures, self.potions, self.current_pokemon)
+
+    def remove_creature(self, creature):
+        self.creatures.remove(creature)
+        return self.trainer_stats()
+
+    def add_creature(self, creature):
+        if len(self.creatures) < 6:
+            self.creatures.append(creature)
+        elif len(self.creatures) == 6:
+            value = input("Discard a pokemon: {}\n".format(self.creatures))
+            value = eval(value)  #this only works if the user knows the object's variable name e.g. "old_greg" for Old Greg
+            self.remove_creature(value)
+            self.creatures.append(creature)
+        return self.trainer_stats()
 
 ash = Trainer("Ash",[charmander, squirtle, bulbasaur, old_greg, growlithe, poliwhirl], 5, 4)
 gary = Trainer("Gary", [bulbasaur, bellsprout, poliwhirl, old_greg, growlithe, squirtle], 5, 2)
 
-print(ash.trainer_stats())
-print(gary.trainer_stats())
+ash.remove_creature(old_greg)
+ash.add_creature(old_greg)
+print(ash.add_creature(oddish))
