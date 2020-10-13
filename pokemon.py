@@ -84,6 +84,11 @@ class Trainer:
 
     def attack_trainer(self, damage, trainer):
         return self.current_pokemon.attack(damage, trainer.current_pokemon)
+    
+    def change_pokemon(self, new_pokemon):
+        new_pokemon = self.creatures.index(new_pokemon)
+        self.current_pokemon = self.creatures[new_pokemon]
+        return self.trainer_stats()
 
 
 charmander = Pokemon("Charmander", 50, "Fire", 50, 50, False)
@@ -99,5 +104,5 @@ bellsprout = Pokemon("Bellsprout", 50, "Grass", 50, 50, False)
 ash = Trainer("Ash",[charmander, squirtle, bulbasaur, old_greg, growlithe, poliwhirl], 5, 4)
 gary = Trainer("Gary", [bulbasaur, bellsprout, poliwhirl, old_greg, growlithe, squirtle], 5, 2)
 
-print(ash.attack_trainer(40, gary))
+print(ash.change_pokemon(charmander))
 
