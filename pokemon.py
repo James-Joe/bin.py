@@ -49,14 +49,6 @@ class Pokemon:
         return other.loose_hp(damage)
         
         
-charmander = Pokemon("Charmander", 50, "Fire", 50, 50, False)
-squirtle = Pokemon("Squirtle", 50, "Water", 50, 50, False)
-bulbasaur = Pokemon("Bulbasaur", 50, "Grass", 50, 50, False)
-old_greg = Pokemon("Old Greg", 50, "Water", 50, 50, False )
-growlithe = Pokemon("Growlithe", 50, "Fire", 50, 50, False)
-poliwhirl = Pokemon("Poliwhirl", 50, "Water", 50, 50, False)
-oddish = Pokemon("Oddish", 50, "Grass", 50, 50, False)
-bellsprout = Pokemon("Bellsprout", 50, "Grass", 50, 50, False)
 
 class Trainer:
     def __init__(self, name, creatures, potions, current_pokemon):
@@ -90,11 +82,22 @@ class Trainer:
             print("You don't have any potions")
         return self.trainer_stats()
 
+    def attack_trainer(self, damage, trainer):
+        return self.current_pokemon.attack(damage, trainer.current_pokemon)
+
+
+charmander = Pokemon("Charmander", 50, "Fire", 50, 50, False)
+squirtle = Pokemon("Squirtle", 50, "Water", 50, 50, False)
+bulbasaur = Pokemon("Bulbasaur", 50, "Grass", 50, 50, False)
+old_greg = Pokemon("Old Greg", 50, "Water", 50, 50, False )
+growlithe = Pokemon("Growlithe", 50, "Fire", 50, 50, False)
+poliwhirl = Pokemon("Poliwhirl", 50, "Water", 50, 50, False)
+oddish = Pokemon("Oddish", 50, "Grass", 50, 50, False)
+bellsprout = Pokemon("Bellsprout", 50, "Grass", 50, 50, False)
 
 
 ash = Trainer("Ash",[charmander, squirtle, bulbasaur, old_greg, growlithe, poliwhirl], 5, 4)
 gary = Trainer("Gary", [bulbasaur, bellsprout, poliwhirl, old_greg, growlithe, squirtle], 5, 2)
 
-charmander.loose_hp(15)
-print(ash.heal_poke(charmander))
+print(ash.attack_trainer(40, gary))
 
