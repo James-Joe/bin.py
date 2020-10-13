@@ -21,9 +21,9 @@ class Pokemon:
             return self.is_knocked_out(self.current_health)
         return "{}'s hp is now at {}".format(self.name, self.current_health)
     
-    def gain_hp(self, potion):
-        self.potion = potion
-        self.current_health = self.current_health + potion
+    def gain_hp(self, health):
+        self.health = health
+        self.current_health = self.current_health + health
         if self.current_health > self.maximum_health:
             self.current_health = self.maximum_health
         if self.current_health > 0:
@@ -83,9 +83,18 @@ class Trainer:
             self.creatures.append(creature)
         return self.trainer_stats()
 
+    def heal_poke(self,creature):
+        print(creature.gain_hp(10))
+        self.potions -= 1
+        if self.potions == 0:
+            print("You don't have any potions")
+        return self.trainer_stats()
+
+
+
 ash = Trainer("Ash",[charmander, squirtle, bulbasaur, old_greg, growlithe, poliwhirl], 5, 4)
 gary = Trainer("Gary", [bulbasaur, bellsprout, poliwhirl, old_greg, growlithe, squirtle], 5, 2)
 
-ash.remove_creature(old_greg)
-ash.add_creature(old_greg)
-print(ash.add_creature(oddish))
+charmander.loose_hp(15)
+print(ash.heal_poke(charmander))
+
