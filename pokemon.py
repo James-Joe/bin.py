@@ -86,8 +86,11 @@ class Trainer:
         return self.current_pokemon.attack(damage, trainer.current_pokemon)
     
     def change_pokemon(self, new_pokemon):
-        new_pokemon = self.creatures.index(new_pokemon)
-        self.current_pokemon = self.creatures[new_pokemon]
+        if new_pokemon.knocked_out == True:
+            print("{} is knocked out. Choose another pokemon".format(new_pokemon.name))
+        else:
+            new_pokemon = self.creatures.index(new_pokemon)
+            self.current_pokemon = self.creatures[new_pokemon]
         return self.trainer_stats()
 
 
@@ -104,5 +107,6 @@ bellsprout = Pokemon("Bellsprout", 50, "Grass", 50, 50, False)
 ash = Trainer("Ash",[charmander, squirtle, bulbasaur, old_greg, growlithe, poliwhirl], 5, 4)
 gary = Trainer("Gary", [bulbasaur, bellsprout, poliwhirl, old_greg, growlithe, squirtle], 5, 2)
 
+charmander.loose_hp(50)
 print(ash.change_pokemon(charmander))
 
