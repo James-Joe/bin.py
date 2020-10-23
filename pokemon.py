@@ -1,18 +1,22 @@
 class Pokemon:
-    def __init__(self, name, level, element, maximum_health, current_health, knocked_out):
+    def __init__(self, name, level, element, maximum_health, current_health, knocked_out=False, disadvantage=None):
         self.name = name
         self.level = level
         self.element = element
         self.maximum_health = level
         self.current_health = current_health
         self.knocked_out = knocked_out
+        weakness = {"Fire": ["Water", "Rock"], "Water": ["Grass"], "Grass": ["Fire", "Flying"],
+        "Rock": ["Flying"], "Flying": ["Rock"]}
+        self.disadvantage = weakness.get(self.element)
+
         
     def __repr__(self):
         return self.name
 
     def poke_status(self):
-        return "{}'s Stats \nLvl.: {}  Type: {} \nHp: {} \nUnconscious: {}".format(
-            self.name, self.level, self.element, self.current_health, self.knocked_out)
+        return "{}'s Stats \nLvl.: {}  Type: {} \nHp: {} \nUnconscious: {} \nWeaknesses: {}".format(
+            self.name, self.level, self.element, self.current_health, self.knocked_out, self.disadvantage)
 
     def loose_hp(self, damage):
         self.damage = damage
@@ -36,16 +40,14 @@ class Pokemon:
             return "{} is knocked the fuck out!".format(self.name)
     
     def attack(self, damage, other):
-        advantage = ""
-        disadvantage = ""
         modifier = 3
-        weakness = {"Fire": "Water", "Water" :"Grass", "Grass": "Fire"}
-        advantage = advantage + weakness.get(other.element)
-        disadvantage = disadvantage + weakness.get(self.element)
-        if other.element == disadvantage:
-            damage = damage - modifier
-        if self.element == advantage:
-            damage = damage + modifier
+        for i in self.disadvantage:
+            if i == other.element:
+                damage = damage - modifier
+        for i in other.disadvantage:
+            if i == self.element:
+                damage = damage + modifier
+        
         return other.loose_hp(damage)
         
         
@@ -94,19 +96,18 @@ class Trainer:
         return self.trainer_stats()
 
 
-charmander = Pokemon("Charmander", 50, "Fire", 50, 50, False)
-squirtle = Pokemon("Squirtle", 50, "Water", 50, 50, False)
-bulbasaur = Pokemon("Bulbasaur", 50, "Grass", 50, 50, False)
-old_greg = Pokemon("Old Greg", 50, "Water", 50, 50, False )
-growlithe = Pokemon("Growlithe", 50, "Fire", 50, 50, False)
-poliwhirl = Pokemon("Poliwhirl", 50, "Water", 50, 50, False)
-oddish = Pokemon("Oddish", 50, "Grass", 50, 50, False)
-bellsprout = Pokemon("Bellsprout", 50, "Grass", 50, 50, False)
+charmander = Pokemon("Charmander", 50, "Fire", 50, 50)
+squirtle = Pokemon("Squirtle", 50, "Water", 50, 50)
+bulbasaur = Pokemon("Bulbasaur", 50, "Grass", 50, 50)
+old_greg = Pokemon("Old Greg", 50, "Water", 50, 50)
+growlithe = Pokemon("Growlithe", 50, "Fire", 50, 50)
+poliwhirl = Pokemon("Poliwhirl", 50, "Water", 50, 50)
+oddish = Pokemon("Oddish", 50, "Grass", 50, 50)
+bellsprout = Pokemon("Bellsprout", 50, "Grass", 50, 50)
 
 
 ash = Trainer("Ash",[charmander, squirtle, bulbasaur, old_greg, growlithe, poliwhirl], 5, 4)
 gary = Trainer("Gary", [bulbasaur, bellsprout, poliwhirl, old_greg, growlithe, squirtle], 5, 2)
 
-charmander.loose_hp(50)
-print(ash.change_pokemon(charmander))
+print(squirtle.attack(20, oddish))
 
