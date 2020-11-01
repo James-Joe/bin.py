@@ -1,5 +1,6 @@
 class Pokemon:
-    def __init__(self, name, level, element, maximum_health, current_health, knocked_out=False, disadvantage=None):
+    def __init__(self, name, level, element, maximum_health, current_health, 
+        knocked_out=False, disadvantage=None, xp = 0):
         self.name = name
         self.level = level
         self.element = element
@@ -9,16 +10,16 @@ class Pokemon:
         weakness = {"Fire": ["Water", "Rock"], "Water": ["Grass"], "Grass": ["Fire", "Flying"],
         "Rock": ["Flying"], "Flying": ["Rock"]}
         self.disadvantage = weakness.get(self.element)
-
+        self.xp = xp
         
     def __repr__(self):
         return self.name
 
     def poke_status(self):
-        return "{}'s Stats \nLvl.: {}  Type: {} \nHp: {} \nUnconscious: {} \nWeaknesses: {}".format(
-            self.name, self.level, self.element, self.current_health, self.knocked_out, self.disadvantage)
+        return "{}'s Stats \nLvl.: {}  Type: {} \nHp: {} \nUnconscious: {} \nWeaknesses: {} \nXp: {}".format(
+            self.name, self.level, self.element, self.current_health, self.knocked_out, self.disadvantage, self.xp)
 
-    def loose_hp(self, damage):
+    def lose_hp(self, damage):
         self.damage = damage
         self.current_health = self.current_health - damage
         if self.current_health == 0:
@@ -44,11 +45,13 @@ class Pokemon:
         for i in self.disadvantage:
             if i == other.element:
                 damage = damage - modifier
+                self.xp += 5
         for i in other.disadvantage:
             if i == self.element:
                 damage = damage + modifier
+                self.xp += 10
         
-        return other.loose_hp(damage)
+        return other.lose_hp(damage)
         
         
 
@@ -108,6 +111,4 @@ bellsprout = Pokemon("Bellsprout", 50, "Grass", 50, 50)
 
 ash = Trainer("Ash",[charmander, squirtle, bulbasaur, old_greg, growlithe, poliwhirl], 5, 4)
 gary = Trainer("Gary", [bulbasaur, bellsprout, poliwhirl, old_greg, growlithe, squirtle], 5, 2)
-
-print(squirtle.attack(20, oddish))
 
